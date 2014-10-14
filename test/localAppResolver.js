@@ -30,7 +30,7 @@ describe('localAppResolver', function() {
         });
     });
 
-    describe('getUrl', function(cb) {
+    describe('getUrl', function() {
         it('should return expected url', function(){
             appresolver(KEY, { hostname: 'somehost.com', port: 11111 })
                 .getUrl().should.equal('http://somehost.com:11111/app');
