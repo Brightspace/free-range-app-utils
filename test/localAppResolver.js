@@ -36,7 +36,7 @@ describe('localAppResolver', function() {
         });
     });
 
-    describe('getConfigUrl', function(cb) {
+    describe('getConfigUrl', function() {
         it('should return expected url', function(){
             appresolver(KEY, { hostname: 'somehost.com', port: 11111, configFile: 'someconf.js' })
                 .getConfigUrl().should.equal('http://somehost.com:11111/app/someconf.js');
