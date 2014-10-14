@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-    localAppRegistry: require('./localAppResolver')
+    localAppResolver: require('./localAppResolver')
 };
