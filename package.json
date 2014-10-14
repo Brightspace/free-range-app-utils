@@ -1,0 +1,17 @@
+{
+  "name": "sheepdog",
+  "version": "0.0.1",
+  "description": "Utilities to help build free-range apps.",
+  "main": "main.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "keywords": [
+    "d2l",
+    "free-range"
+  ],
+  "author": "Carl Pacey <Carl.Pacey@Desire2Learn.com>",
+  "devDependencies": {
+    "mocha": "^1.21.5"
+  }
+}
