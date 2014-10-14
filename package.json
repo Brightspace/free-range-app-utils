@@ -12,6 +12,7 @@
   ],
   "author": "Carl Pacey <Carl.Pacey@Desire2Learn.com>",
   "devDependencies": {
+    "chai": "^1.9.2",
     "mocha": "^1.21.5"
   }
 }
