@@ -1,4 +1,4 @@
-var appresolver = require('../localappresolver');
+var appresolver = require('../localAppResolver');
 var request = require('request');
 
 var KEY = 'whatevs';
