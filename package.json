@@ -14,7 +14,9 @@
   "devDependencies": {
     "chai": "^1.9.2",
     "mocha": "^1.21.5",
-    "request": "^2.45.0"
+    "request": "^2.45.0",
+    "streamifier": "^0.1.0",
+    "vinyl-source-stream": "^1.0.0"
   },
   "dependencies": {
     "express": "^4.9.7",
