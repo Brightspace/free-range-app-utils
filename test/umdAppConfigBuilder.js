@@ -4,6 +4,11 @@ var TARGET = 'example.com';
 
 describe('umdAppConfigBuilder', function(){
     describe('build', function(){
+        it('no target', function(){
+            expect(builder.build).to.throw();
+        });
+
+
         it('should have correct schema', function(){
             builder.build(TARGET).should.have.property('schema', 'http://apps.d2l.com/uiapps/config/v1.json' );
         });
