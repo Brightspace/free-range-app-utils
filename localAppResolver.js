@@ -1,11 +1,8 @@
 'use strict';
 
-var path = require('path');
-var packageJson = path.join( process.cwd(), 'package.json' );
-
 function LocalAppRegistry(key, opts) {
     opts = opts || {};
-    opts.key = key || require( packageJson ).name;
+    opts.key = key || require( './packageJson' ).read().name;
     opts.hostname = opts.hostname || 'localhost';
     opts.port = opts.port || 3000;
     opts.dist = opts.dist || 'dist';
