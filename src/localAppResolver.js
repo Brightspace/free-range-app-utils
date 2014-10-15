@@ -2,7 +2,7 @@
 
 function LocalAppRegistry(key, opts) {
     opts = opts || {};
-    opts.key = key || require( './src/packageJson' ).read().name;
+    opts.key = key || require( './packageJson' ).read().name;
     opts.hostname = opts.hostname || 'localhost';
     opts.port = opts.port || 3000;
     opts.dist = opts.dist || 'dist';

@@ -6,6 +6,6 @@ var appConfigBuilder = umdAppConfigBuilder;
 appConfigBuilder.umd = umdAppConfigBuilder;
 
 module.exports = {
-    localAppResolver: require('./localAppResolver'),
+    localAppResolver: require('./src/localAppResolver'),
     appConfigBuilder: appConfigBuilder
 };

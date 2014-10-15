@@ -2,7 +2,7 @@ var main = require('../main');
 
 describe('main', function() {
     it('should expose localAppRegistry', function() {
-        main.localAppResolver.should.be.equal( require('../localAppResolver') );
+        main.localAppResolver.should.be.equal( require('../src/localAppResolver') );
     });
 
     describe('appConfigBuilder', function(){
