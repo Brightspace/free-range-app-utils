@@ -3,4 +3,7 @@
 sheepdog
 ========
 
-Run the tests: `npm test`
+Run the tests locally:
+
+- Install mocha: `npm i -g mocha`
+- Run mocha: `mocha`
