@@ -6,11 +6,16 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cpacey/sheepdog.git"
+  },
   "keywords": [
     "d2l",
     "free-range"
   ],
   "author": "Carl Pacey <Carl.Pacey@Desire2Learn.com>",
+  "license": "Apache 2.0",
   "devDependencies": {
     "chai": "^1.9.2",
     "mocha": "^1.21.5",
