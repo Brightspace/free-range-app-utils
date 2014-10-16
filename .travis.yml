@@ -8,5 +8,5 @@ deploy:
     secure: Zinjo4UIBKDw7lf1z9BjAmQateGtM4jV0Jj6BpuLDsXyplVS0cBZWb6r7G9PGCRAZPJsVkK+nqNhF0f8Bs3dHYj6tXgAaQHlSa10LS4B79KImVUXCwtt0+TJ/wKDqDqkU1vY33fsH9Jxgh5QWVjWJw4jKb8HBqy5LmHd6iM3A3A=
   on:
     tags: true
-    branch: master
+    all_branches: true
     repo: Desire2Learn-Valence/free-range-app-utils
