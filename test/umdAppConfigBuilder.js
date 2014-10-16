@@ -1,4 +1,4 @@
-var builder = require('../umdAppConfigBuilder');
+var builder = require('../src/umdAppConfigBuilder');
 
 var TARGET = 'example.com';
 

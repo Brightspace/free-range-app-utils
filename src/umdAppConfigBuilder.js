@@ -2,7 +2,7 @@
 
 var streamifier = require('streamifier');
 var source = require('vinyl-source-stream');
-var packageJson = require( './src/packageJson' );
+var packageJson = require( './packageJson' );
 
 function build(target, opts) {
     if ( !target ) {

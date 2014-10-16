@@ -1,6 +1,6 @@
 'use strict';
 
-var umdAppConfigBuilder = require('./umdAppConfigBuilder');
+var umdAppConfigBuilder = require('./src/umdAppConfigBuilder');
 
 var appConfigBuilder = umdAppConfigBuilder;
 appConfigBuilder.umd = umdAppConfigBuilder;
