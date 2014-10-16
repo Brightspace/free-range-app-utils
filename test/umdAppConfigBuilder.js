@@ -1,4 +1,4 @@
-var builder = require('../umdAppConfigBuilder');
+var builder = require('../src/umdAppConfigBuilder');
 
 var TARGET = 'example.com';
 
@@ -37,7 +37,7 @@ describe('umdAppConfigBuilder', function(){
                 var VERSION = '1.0.0.0.0.1';
                 var DESCRIPTION = 'It is a small world';
 
-                var packageJson = require('../packageJson');
+                var packageJson = require('../src/packageJson');
 
                 before(function(){
                     packageJson.read_ = packageJson.read;

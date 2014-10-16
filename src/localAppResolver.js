@@ -37,4 +37,3 @@ LocalAppRegistry.prototype.getConfigUrl = function() {
 module.exports = function(key, opts) {
     return new LocalAppRegistry(key, opts);
 };
-

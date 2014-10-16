@@ -2,11 +2,11 @@ var main = require('../main');
 
 describe('main', function() {
     it('should expose localAppRegistry', function() {
-        main.localAppResolver.should.be.equal( require('../localAppResolver') );
+        main.localAppResolver.should.be.equal( require('../src/localAppResolver') );
     });
 
     describe('appConfigBuilder', function(){
-        var umdAppConfigBuilder = require('../umdAppConfigBuilder');
+        var umdAppConfigBuilder = require('../src/umdAppConfigBuilder');
 
         it('should default umd', function() {
             main.appConfigBuilder.should.be.equal( umdAppConfigBuilder );
