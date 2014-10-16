@@ -10,7 +10,7 @@ var frau = require('free-range-app-utils');
 Install as a development dependency:
 
 ```shell
-npm install --save-dev vui-link
+npm install --save-dev free-range-app-utils
 ```
 
 Require as normal:
