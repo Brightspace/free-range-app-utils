@@ -1,16 +1,13 @@
-sheepdog
-========
-[![travis badge](http://img.shields.io/travis/cpacey/sheepdog.svg)](https://travis-ci.org/cpacey/sheepdog)
-[![coveralls badge](http://img.shields.io/coveralls/cpacey/sheepdog.svg)](https://coveralls.io/r/cpacey/sheepdog)
-
-Sheepdog exposes utilities that help you build free-range apps.
+# Free-Range App Utils ([Frau](http://en.wiktionary.org/wiki/Frau))
+[![travis badge](http://img.shields.io/travis/Desire2Learn-Valence/free-range-app-utils.svg)](https://travis-ci.org/Desire2Learn-Valence/free-range-app-utils)
+[![coveralls badge](http://img.shields.io/coveralls/Desire2Learn-Valence/free-range-app-utils.svg)](https://coveralls.io/r/Desire2Learn-Valence/free-range-app-utils)
 
 ## Utilities
 
 ### Local app resolver
 
 ```javascript
-var appresolver = require('sheepdog').localAppResolver( key, options );
+var appresolver = require('free-range-app-utils').localAppResolver( key, options );
 
 // Host an app resolver
 appresolver.host();

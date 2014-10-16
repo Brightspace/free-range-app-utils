@@ -10,7 +10,7 @@ describe('localAppResolver', function() {
         });
 
         it('key', function() {
-            appresolver()._opts.should.have.property('key', 'sheepdog');
+            appresolver()._opts.should.have.property('key', 'free-range-app-utils');
         });
 
         it('hostname', function() {

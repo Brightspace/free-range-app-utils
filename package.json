@@ -1,14 +1,14 @@
 {
-  "name": "sheepdog",
+  "name": "free-range-app-utils",
   "version": "0.0.1",
-  "description": "Utilities to help build free-range apps.",
+  "description": "Utilities for building free-range apps.",
   "main": "main.js",
   "scripts": {
     "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cpacey/sheepdog.git"
+    "url": "https://github.com/Desire2Learn-Valence/free-range-app-utils.git"
   },
   "keywords": [
     "d2l",
