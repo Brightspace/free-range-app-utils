@@ -17,7 +17,7 @@ describe('htmlAppConfigBuilder', function(){
 
             describe('defaults', function(){
               var DEFAULT_RESOURCE = 'resource';
-              var ADDITIONAL_RESOURCES = 'other-resources';
+              var ACCESSIBLE_RESOURCES = 'other-resources';
 
               var packageJson = require('../src/packageJson');
 
@@ -25,8 +25,8 @@ describe('htmlAppConfigBuilder', function(){
                 packageJson.read_ = packageJson.read;
                 packageJson.read = function() {
                   return {
-                    defaultResource: DEFAULT_RESOURCE,
-                    additionalResources: ADDITIONAL_RESOURCES
+                    appDefaultResource: DEFAULT_RESOURCE,
+                    appAccessibleResources: ACCESSIBLE_RESOURCES
                   };
                 };
               });
@@ -40,8 +40,8 @@ describe('htmlAppConfigBuilder', function(){
                   builder.build().loader.should.have.property( 'defaultResource', DEFAULT_RESOURCE );
               });
 
-              it('additionalResource', function(){
-                  builder.build().loader.should.have.property( 'additionalResources', ADDITIONAL_RESOURCES );
+              it('additionalResources', function(){
+                  builder.build().loader.should.have.property( 'additionalResources', ACCESSIBLE_RESOURCES );
               });
 
             });
@@ -53,8 +53,8 @@ describe('htmlAppConfigBuilder', function(){
                     builder.build({ defaultResource: VALUE }).loader.should.have.property( 'defaultResource', VALUE );
                 });
 
-                it('additionalResource', function(){
-                    builder.build({ additionalResource: VALUE }).loader.should.have.property( 'additionalResource', VALUE );
+                it('additionalResources', function(){
+                    builder.build({ additionalResources: VALUE }).loader.should.have.property( 'additionalResources', VALUE );
                 });
 
             });
@@ -81,7 +81,7 @@ describe('htmlAppConfigBuilder', function(){
                             name: NAME,
                             version: VERSION,
                             description: DESCRIPTION,
-                            id: ID
+                            appId: ID
                         };
                     };
                 });

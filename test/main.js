@@ -7,6 +7,7 @@ describe('main', function() {
 
     describe('appConfigBuilder', function(){
         var umdAppConfigBuilder = require('../src/umdAppConfigBuilder');
+        var htmlAppConfigBuilder = require('../src/htmlAppConfigBuilder');
 
         it('should default umd', function() {
             main.appConfigBuilder.should.be.equal( umdAppConfigBuilder );

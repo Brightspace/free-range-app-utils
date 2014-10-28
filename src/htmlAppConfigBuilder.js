@@ -12,8 +12,8 @@ function build(opts) {
 	opts.version = opts.version || pjson.version;
 	opts.id = opts.id || pjson.appId;
 	opts.description = opts.description || pjson.description;
-	opts.appDefaultResource = opts.appDefaultResource || pjson.appDefaultResource;
-	opts.appAccessibleResources = opts.appAccessibleResources || pjson.appAccessibleResources;
+	opts.defaultResource = opts.defaultResource || pjson.appDefaultResource;
+	opts.additionalResources = opts.additionalResources || pjson.appAccessibleResources;
 
 	var appConfig = {
 		"schema": "http://apps.d2l.com/uiapps/config/v1.json",
@@ -25,8 +25,8 @@ function build(opts) {
 		},
 		"loader": {
 			"schema": "http://apps.d2l.com/uiapps/htmlschema/v1.json",
-			"defaultResource": opts.appDefaultResource,
-			"additionalResources": opts.appAccessibleResources
+			"defaultResource": opts.defaultResource,
+			"additionalResources": opts.additionalResources
 		}
 	}
 
