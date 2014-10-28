@@ -15,5 +15,9 @@ describe('main', function() {
         it('should expose umd', function() {
             main.appConfigBuilder.should.have.property('umd').that.is.equal( umdAppConfigBuilder );
         });
+
+        it('should expose html', function() {
+          main.appConfigBuilder.should.have.property('html').that.is.equal( htmlAppConfigBuilder );
+        });
     });
 });
