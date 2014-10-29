@@ -41,7 +41,7 @@ Parameters:
   - `hostname` - hostname (or IP) to listen on.  Defaults to `localhost`.  You should not need to change this.
   - `configFile` - name off the app config file.  Defaults to `appconfig.json`.  You should not need to change this.
 
-### Build appconfig
+### Build appconfig (UMD Apps)
 
 ```javascript
 // Returns a JSON object with the appconfig
@@ -64,6 +64,38 @@ Both `build` and `buildStream` take the same parameters:
   - `version` - The app's version.  Defaults to `version` from package.json.
   - `id` - The app's id.  Defaults to `name` from package.json.
   - `description` - The app's description.  Defaults to `description` from package.json.
+
+You should generally not need to provide `options`.
+
+### Build appconfig (HTML Apps)
+
+```javascript
+// Returns a JSON object with the appconfig
+var appConfig = frau.appConfigBuilder.html.build( options );
+```
+
+```javascript
+gulp.task('appconfig', function(){
+    // Returns a vinyl stream with the appconfig.  Convenience method for use with gulp.
+    return frau.appConfigBuilder.html.buildStream( options )
+           .pipe(gulp.dest('dist'));
+});
+```
+
+Both `build` and `buildStream` take the same parameter:
+
+- `options` (optional) - Object containing:
+  - `name` - The app's name.  Defaults to `name` from package.json.
+  - `version` - The app's version.  Defaults to `version` from package.json.
+  - `id` - The app's id.  Defaults to `name` from package.json.
+  - `description` - The app's description.  Defaults to `description` from package.json.
+  - `defaultResource` - The default resource to point to when the app is loaded. Defaults to `appDefaultResource` resource object in package.json.
+  - `additionalResources` - An array of additional resource objects that the app makes accessible. Defaults to `appAccessibleResources` in package.json.
+
+Resource objects contain the following properties:
+- `uri` - The URI, relative to the application's root, at which the resouce can be found.
+- `type` - The type of resource (e.g. html).
+- `pageTemplate` - The page template to use when the app is loaded.
 
 You should generally not need to provide `options`.
 
