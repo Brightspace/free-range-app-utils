@@ -1,6 +1,6 @@
 # Free-Range App Utils ([Frau](http://en.wiktionary.org/wiki/Frau))
-[![travis badge](http://img.shields.io/travis/Desire2Learn-Valence/free-range-app-utils.svg)](https://travis-ci.org/Desire2Learn-Valence/free-range-app-utils)
-[![coveralls badge](http://img.shields.io/coveralls/Desire2Learn-Valence/free-range-app-utils.svg)](https://coveralls.io/r/Desire2Learn-Valence/free-range-app-utils)
+[![travis badge](http://img.shields.io/travis/Brightspace/free-range-app-utils.svg)](https://travis-ci.org/Brightspace/free-range-app-utils)
+[![coveralls badge](http://img.shields.io/coveralls/Brightspace/free-range-app-utils.svg)](https://coveralls.io/r/Brightspace/free-range-app-utils)
 
 ```javascript
 var frau = require('free-range-app-utils');
