@@ -1,4 +1,5 @@
 # Free-Range App Utils ([Frau](http://en.wiktionary.org/wiki/Frau))
+[![NPM version][npm-image]][npm-url]
 [![travis badge](http://img.shields.io/travis/Brightspace/free-range-app-utils.svg)](https://travis-ci.org/Brightspace/free-range-app-utils)
 [![coveralls badge](http://img.shields.io/coveralls/Brightspace/free-range-app-utils.svg)](https://coveralls.io/r/Brightspace/free-range-app-utils)
 
@@ -112,3 +113,6 @@ Run the tests locally:
 
 This repository is configured with [EditorConfig](http://editorconfig.org) rules and
 contributions should make use of them.
+
+[npm-url]: https://npmjs.org/package/free-range-app-utils
+[npm-image]: https://badge.fury.io/js/free-range-app-utils.png
