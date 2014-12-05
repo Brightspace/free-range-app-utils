@@ -9,4 +9,4 @@ deploy:
   on:
     tags: true
     all_branches: true
-    repo: Desire2Learn-Valence/free-range-app-utils
+    repo: Brightspace/free-range-app-utils
