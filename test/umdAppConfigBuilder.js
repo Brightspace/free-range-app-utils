@@ -1,6 +1,7 @@
 var builder = require('../src/umdAppConfigBuilder');
 
 var TARGET = 'example.com';
+var TARGET_WITH_TRAILING_SLASH = 'example.com/path/';
 
 describe('umdAppConfigBuilder', function(){
     describe('build', function(){
@@ -24,6 +25,13 @@ describe('umdAppConfigBuilder', function(){
 
             it('should have correct endpoint', function(){
                 builder.build(TARGET).loader.should.have.property('endpoint', TARGET + '/app.js' );
+            });
+
+            it('endpoint looks for trailing slashes in target', function(){
+                builder.build(TARGET_WITH_TRAILING_SLASH).loader.should.have.property(
+                  'endpoint',
+                  TARGET_WITH_TRAILING_SLASH + 'app.js'
+                );
             });
         });
 
