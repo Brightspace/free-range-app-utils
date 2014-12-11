@@ -1,9 +1,11 @@
 'use strict';
 
+var os = require('os');
+
 function LocalAppRegistry(key, opts) {
     opts = opts || {};
     opts.key = key || require( './packageJson' ).read().name;
-    opts.hostname = opts.hostname || 'localhost';
+    opts.hostname = opts.hostname || os.hostname();
     opts.port = opts.port || 3000;
     opts.dist = opts.dist || 'dist';
     opts.configFile = opts.configFile || 'appconfig.json';

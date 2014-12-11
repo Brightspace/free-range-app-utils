@@ -14,7 +14,7 @@ describe('localAppResolver', function() {
         });
 
         it('hostname', function() {
-            appresolver()._opts.should.have.property('hostname', 'localhost');
+            appresolver()._opts.should.have.property('hostname', require('os').hostname());
         });
 
         it('port', function() {
@@ -45,7 +45,7 @@ describe('localAppResolver', function() {
     });
 
     describe('host', function(){
-        var resolver = appresolver(KEY, { dist: 'test/testDist' });
+        var resolver = appresolver(KEY, { dist: 'test/testDist', hostname: 'localhost' });
         resolver.host();
 
         it('should serve resolution', function(cb) {
