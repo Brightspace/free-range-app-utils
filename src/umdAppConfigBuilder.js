@@ -27,7 +27,9 @@ function build(target, opts) {
         },
         "loader": {
             "schema": "http://apps.d2l.com/uiapps/umdschema/v1.json",
-            "endpoint": target + "/app.js"
+            "endpoint": target.charAt(target.length - 1) === '/' ?
+              target + "app.js" :
+              target + "/app.js"
         }
     };
 
