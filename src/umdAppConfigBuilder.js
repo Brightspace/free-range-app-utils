@@ -2,38 +2,21 @@
 
 var streamifier = require('streamifier');
 var source = require('vinyl-source-stream');
-var packageJson = require( './packageJson' );
+var builder = require( './appConfigBuilder' );
 
 function build(target, opts) {
     if ( !target ) {
-        throw new Error('missing target');
+        throw new Error('Missing target');
     }
 
-    var pjson = packageJson.read();
-
-    opts = opts || {};
-    opts.name = opts.name || pjson.name;
-    opts.version = opts.version || pjson.version;
-    opts.id = opts.id || pjson.name;
-    opts.description = opts.description || pjson.description;
-
-    var appConfig = {
-        "schema": "http://apps.d2l.com/uiapps/config/v1.json",
-        "metadata": {
-            "name": opts.name,
-            "version": opts.version,
-            "id": opts.id,
-            "description": opts.description
-        },
-        "loader": {
-            "schema": "http://apps.d2l.com/uiapps/umdschema/v1.json",
-            "endpoint": target.charAt(target.length - 1) === '/' ?
-              target + "app.js" :
-              target + "/app.js"
-        }
+    var loader = {
+        schema: "http://apps.d2l.com/uiapps/umdschema/v1.json",
+        endpoint: target.charAt(target.length - 1) === '/' ?
+          target + "app.js" :
+          target + "/app.js"
     };
 
-    return appConfig;
+    return builder.build( opts, loader );
 }
 
 function buildStream(target, opts) {
