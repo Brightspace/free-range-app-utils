@@ -3,102 +3,52 @@ var builder = require('../src/umdAppConfigBuilder');
 var TARGET = 'example.com';
 var TARGET_WITH_TRAILING_SLASH = 'example.com/path/';
 
+var OPTS = createValidOpts();
+
 describe('umdAppConfigBuilder', function(){
     describe('build', function(){
         it('no target', function(){
-            expect(builder.build).to.throw();
+            expect(builder.build).to.throw('Missing target');
         });
 
+        it('should pass opts', function(){
+            var coreBuilder = sinon.spy(require('../src/appConfigBuilder'), 'build');
 
-        it('should have correct schema', function(){
-            builder.build(TARGET).should.have.property('schema', 'http://apps.d2l.com/uiapps/config/v1.json' );
+            builder.build(TARGET, OPTS);
+
+            coreBuilder.should.have.been.calledWith(OPTS);
+
+            coreBuilder.restore();
         });
 
         describe('loader', function(){
             it('should exist', function(){
-                builder.build(TARGET).should.have.property('loader');
+                builder.build(TARGET, OPTS).should.have.property('loader');
             });
 
             it('should have correct schema', function(){
-                builder.build(TARGET).loader.should.have.property('schema', 'http://apps.d2l.com/uiapps/umdschema/v1.json' );
+                builder.build(TARGET, OPTS).loader.should.have.property('schema', 'http://apps.d2l.com/uiapps/umdschema/v1.json' );
             });
 
             it('should have correct endpoint', function(){
-                builder.build(TARGET).loader.should.have.property('endpoint', TARGET + '/app.js' );
+                builder.build(TARGET, OPTS).loader.should.have.property('endpoint', TARGET + '/app.js' );
             });
 
             it('endpoint looks for trailing slashes in target', function(){
-                builder.build(TARGET_WITH_TRAILING_SLASH).loader.should.have.property(
+                builder.build(TARGET_WITH_TRAILING_SLASH, OPTS).loader.should.have.property(
                   'endpoint',
                   TARGET_WITH_TRAILING_SLASH + 'app.js'
                 );
             });
         });
-
-        describe('metadata', function(){
-            it('should exist', function(){
-                builder.build(TARGET).should.have.property('metadata');
-            });
-
-            describe('defaults', function(){
-                var NAME = 'some-name';
-                var VERSION = '1.0.0.0.0.1';
-                var DESCRIPTION = 'It is a small world';
-
-                var packageJson = require('../src/packageJson');
-
-                before(function(){
-                    packageJson.read_ = packageJson.read;
-                    packageJson.read = function() {
-                        return {
-                            name: NAME,
-                            version: VERSION,
-                            description: DESCRIPTION
-                        };
-                    };
-                });
-
-                after(function(){
-                    packageJson.read = packageJson.read_;
-                    packageJson.read_ = null;
-                });
-
-                it('name', function(){
-                    builder.build(TARGET).metadata.should.have.property( 'name', NAME );
-                });
-
-                it('version', function(){
-                    builder.build(TARGET).metadata.should.have.property( 'version', VERSION );
-                });
-
-                it('id', function(){
-                    builder.build(TARGET).metadata.should.have.property( 'id', NAME );
-                });
-
-                it('description', function(){
-                    builder.build(TARGET).metadata.should.have.property( 'description', DESCRIPTION );
-                });
-            });
-
-            describe('arguments', function(){
-                var VALUE = 'some-value';
-
-                it('name', function(){
-                    builder.build(TARGET, { name: VALUE }).metadata.should.have.property( 'name', VALUE );
-                });
-
-                it('version', function(){
-                    builder.build(TARGET, { version: VALUE }).metadata.should.have.property( 'version', VALUE );
-                });
-
-                it('id', function(){
-                    builder.build(TARGET, { id: VALUE }).metadata.should.have.property( 'id', VALUE );
-                });
-
-                it('description', function(){
-                    builder.build(TARGET, { description: VALUE }).metadata.should.have.property( 'description', VALUE );
-                });
-            });
-        });
     });
 });
+
+function createValidOpts() {
+    return {
+        name: 'some-name',
+        version: '1.0.0.0.0.1',
+        description: 'It is a small world',
+        id: 'some-id'
+    };
+}

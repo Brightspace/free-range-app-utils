@@ -1,8 +1,8 @@
 'use strict';
 
 var chai = require('chai');
-var expect = chai.expect;
+global.expect = chai.expect;
+global.sinon = require('sinon');
 
 chai.should();
-
-global.expect = chai.expect;
+chai.use(require('sinon-chai'));
