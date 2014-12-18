@@ -1,7 +1,6 @@
 var builder = require('../src/umdAppConfigBuilder');
 
-var TARGET = 'example.com';
-var TARGET_WITH_TRAILING_SLASH = 'example.com/path/';
+var TARGET = 'example.com/path/app.js';
 
 var OPTS = createValidOpts();
 
@@ -31,14 +30,7 @@ describe('umdAppConfigBuilder', function(){
             });
 
             it('should have correct endpoint', function(){
-                builder.build(TARGET, OPTS).loader.should.have.property('endpoint', TARGET + '/app.js' );
-            });
-
-            it('endpoint looks for trailing slashes in target', function(){
-                builder.build(TARGET_WITH_TRAILING_SLASH, OPTS).loader.should.have.property(
-                  'endpoint',
-                  TARGET_WITH_TRAILING_SLASH + 'app.js'
-                );
+                builder.build(TARGET, OPTS).loader.should.have.property('endpoint', TARGET );
             });
         });
     });
