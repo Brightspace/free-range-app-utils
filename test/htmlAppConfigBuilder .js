@@ -80,7 +80,7 @@ describe('htmlAppConfigBuilder', function(){
 function createValidOpts() {
     return {
         name: 'some-name',
-        version: '1.0.0.0.0.1',
+        version: '1.0.0.1',
         description: 'It is a small world',
         id: 'some-id',
         defaultResource: 'test'
