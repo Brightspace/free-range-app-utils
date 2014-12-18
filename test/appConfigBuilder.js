@@ -48,39 +48,42 @@ describe('appConfigBuilder', function(){
                 var DESCRIPTION = 'It is a small world';
                 var ID = 'some-id';
 
-                var packageJson = require('../src/packageJson');
+                var stub;
 
                 before(function(){
-                    packageJson.read_ = packageJson.read;
-                    packageJson.read = function() {
-                        return {
-                            name: NAME,
-                            version: VERSION,
-                            description: DESCRIPTION,
-                            appId: ID
-                        };
-                    };
+                    stub = sinon.stub(require('../src/packageJson'), 'read')
                 });
 
                 after(function(){
-                    packageJson.read = packageJson.read_;
-                    packageJson.read_ = null;
+                    stub.restore();
                 });
 
                 it('name', function(){
-                    builder.build(createValidOpts(), LOADER).metadata.should.have.property( 'name', NAME );
+                    var VALUE = 'defaults-name';
+                    stub.returns({ name: VALUE });
+
+                    builder.build(createValidOptsWithout('name'), LOADER).metadata.should.have.property( 'name', VALUE );
                 });
 
                 it('version', function(){
-                    builder.build(createValidOpts(), LOADER).metadata.should.have.property( 'version', VERSION );
+                    var VALUE = '12.123.124';
+                    stub.returns({ version: VALUE });
+
+                    builder.build(createValidOptsWithout('version'), LOADER).metadata.should.have.property( 'version', VALUE );
                 });
 
                 it('id', function(){
-                    builder.build(createValidOpts(), LOADER).metadata.should.have.property( 'id', ID );
+                    var VALUE = '12.123.124';
+                    stub.returns({ appId: VALUE });
+
+                    builder.build(createValidOptsWithout('id'), LOADER).metadata.should.have.property( 'id', VALUE );
                 });
 
                 it('description', function(){
-                    builder.build(createValidOpts(), LOADER).metadata.should.have.property( 'description', DESCRIPTION );
+                    var VALUE = '12.123.124';
+                    stub.returns({ description: VALUE });
+
+                    builder.build(createValidOptsWithout('description'), LOADER).metadata.should.have.property( 'description', VALUE );
                 });
             });
 
@@ -131,18 +134,16 @@ describe('appConfigBuilder', function(){
             });
 
             describe('no value', function(){
-                var packageJson = require('../src/packageJson');
+                var stub;
 
                 before(function(){
-                    packageJson.read_ = packageJson.read;
-                    packageJson.read = function() {
-                        return {};
-                    };
+                    stub = sinon
+                        .stub(require('../src/packageJson'), 'read')
+                        .returns({});
                 });
 
                 after(function(){
-                    packageJson.read = packageJson.read_;
-                    packageJson.read_ = null;
+                    stub.restore();
                 });
 
                 SIMPLE_PARAMETERS.forEach(function(param){

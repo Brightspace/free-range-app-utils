@@ -18,35 +18,33 @@ describe('htmlAppConfigBuilder', function(){
             });
 
             describe('defaults', function(){
-              var DEFAULT_RESOURCE = 'resource';
-              var ACCESSIBLE_RESOURCES = 'other-resources';
+                var DEFAULT_RESOURCE = 'resource';
+                var ACCESSIBLE_RESOURCES = 'other-resources';
 
-              var packageJson = require('../src/packageJson');
+                var stub;
 
-              before(function(){
-                packageJson.read_ = packageJson.read;
-                packageJson.read = function() {
-                  return {
-                    appDefaultResource: DEFAULT_RESOURCE,
-                    appAccessibleResources: ACCESSIBLE_RESOURCES
-                  };
-                };
-              });
+                before(function(){
+                    stub = sinon
+                        .stub( require('../src/packageJson'), 'read' )
+                        .returns({
+                            appDefaultResource: DEFAULT_RESOURCE,
+                            appAccessibleResources: ACCESSIBLE_RESOURCES
+                        });
+                });
 
-              after(function(){
-                packageJson.read = packageJson.read_;
-                packageJson.read_ = null;
-              });
+                after(function(){
+                    stub.restore();
+                });
 
-              it('defaultResource', function(){
-                  var opts = createValidOptsWithout('defaultResource');
+                it('defaultResource', function(){
+                    var opts = createValidOptsWithout('defaultResource');
 
-                  builder.build(opts).loader.should.have.property( 'defaultResource', DEFAULT_RESOURCE );
-              });
+                    builder.build(opts).loader.should.have.property( 'defaultResource', DEFAULT_RESOURCE );
+                });
 
-              it('additionalResources', function(){
-                  builder.build(OPTS).loader.should.have.property( 'additionalResources', ACCESSIBLE_RESOURCES );
-              });
+                it('additionalResources', function(){
+                    builder.build(OPTS).loader.should.have.property( 'additionalResources', ACCESSIBLE_RESOURCES );
+                });
 
             });
 
