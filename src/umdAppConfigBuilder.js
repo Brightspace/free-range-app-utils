@@ -11,9 +11,7 @@ function build(target, opts) {
 
     var loader = {
         schema: "http://apps.d2l.com/uiapps/umdschema/v1.json",
-        endpoint: target.charAt(target.length - 1) === '/' ?
-          target + "app.js" :
-          target + "/app.js"
+        endpoint: target
     };
 
     return builder.build( opts, loader );
