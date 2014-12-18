@@ -1,6 +1,6 @@
 var builder = require('../src/appConfigBuilder');
 
-var SIMPLE_ARGUMENTS = ['name', 'version', 'id', 'description'];
+var SIMPLE_PARAMETERS = ['name', 'version', 'id', 'description'];
 var LOADER = 'test';
 
 describe('appConfigBuilder', function(){
@@ -13,7 +13,7 @@ describe('appConfigBuilder', function(){
             var spy = sinon.stub(require('../src/packageJson'), 'read')
                 .returns({
                     name: 'some-name',
-                    version: '1.0.0.0.0.1',
+                    version: '1.0.0.1',
                     description: 'It is a small world',
                     appId: 'some-id'
                 });
@@ -44,7 +44,7 @@ describe('appConfigBuilder', function(){
 
             describe('defaults', function(){
                 var NAME = 'some-name';
-                var VERSION = '1.0.0.0.0.1';
+                var VERSION = '1.0.0.1';
                 var DESCRIPTION = 'It is a small world';
                 var ID = 'some-id';
 
@@ -84,15 +84,48 @@ describe('appConfigBuilder', function(){
                 });
             });
 
-            describe('arguments', function(){
-                var VALUE = 'special-explicit-value';
+            describe('valid arguments', function(){
+                var VALUES = {
+                    id: [ 'some-name', 'D2L.LP.App' ],
+                    version: [ '0.0.0.0', '1.0.0' ],
+                    name: [ 'some-name', 'some name', longString(256) ],
+                    description: [ 'A simple description.', longString(1024) ],
+                };
 
-                SIMPLE_ARGUMENTS.forEach( function(arg){
-                    it(arg, function(){
-                        var opts = createValidOptsWithout(arg);
-                        opts[arg] = VALUE;
+                SIMPLE_PARAMETERS.forEach(function(param){
+                    describe(param, function(){
+                        VALUES[param].forEach(function(value){
+                            it(value, function(){
+                                var opts = createValidOptsWithout(param);
+                                opts[param] = value;
 
-                        builder.build(opts, LOADER).metadata.should.have.property( arg, VALUE );
+                                builder.build(opts, LOADER).metadata.should.have.property( param, value );
+                            });
+                        });
+                    });
+                });
+            });
+
+            describe('invalid arguments', function(){
+                var VALUES = {
+                    id: [ '....', '----', 'some--name' ],
+                    version: [ '....', '1.0-something', '1.0.0.0.1', '1.0' ],
+                    name: [ longString(257) ],
+                    description: [ longString(1025) ],
+                };
+
+                SIMPLE_PARAMETERS.forEach(function(param){
+                    describe(param, function(){
+                        VALUES[param].forEach(function(value){
+                            it(value, function(){
+                                var opts = createValidOptsWithout(param);
+                                opts[param] = value;
+
+                                expect(function(){
+                                    builder.build(opts, LOADER);
+                                }).to.throw( new RegExp(param) ); // message should include parameter name
+                            });
+                        });
                     });
                 });
             });
@@ -112,13 +145,13 @@ describe('appConfigBuilder', function(){
                     packageJson.read_ = null;
                 });
 
-                SIMPLE_ARGUMENTS.forEach(function(prop){
-                    it(prop, function(){
-                        var opts = createValidOptsWithout(prop);
+                SIMPLE_PARAMETERS.forEach(function(param){
+                    it(param, function(){
+                        var opts = createValidOptsWithout(param);
 
                         expect(function(){
                             builder.build(opts, LOADER);
-                        }).to.throw( prop + ' was not specified and can\'t be found in package.json' );
+                        }).to.throw( param + ' was not specified and can\'t be found in package.json' );
                     });
                 })
             });
@@ -129,7 +162,7 @@ describe('appConfigBuilder', function(){
 function createValidOpts() {
     return {
         name: 'some-name',
-        version: '1.0.0.0.0.1',
+        version: '1.0.0.1',
         description: 'It is a small world',
         id: 'some-id',
         loader: 'test'
@@ -140,4 +173,8 @@ function createValidOptsWithout(str) {
     var opts = createValidOpts();
     delete opts[str];
     return opts;
+}
+
+function longString(len) {
+    return Array(len + 1).join('a');
 }
