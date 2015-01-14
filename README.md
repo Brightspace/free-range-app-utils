@@ -7,13 +7,13 @@ Utilities for building free-range apps.
 
 ## Usage
 
-Install `gulp-frau-publisher` as a dev dependency:
+Install `free-range-app-utils` as a dev dependency:
 
 ```shell
 npm install --save-dev free-range-app-utils
 ```
 
-In your gulpfile.js, require the package:
+Require the package:
 
 ```javascript
 var frau = require('free-range-app-utils');
