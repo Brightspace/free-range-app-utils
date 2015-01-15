@@ -27,6 +27,7 @@
     "sinon-chai": "^2.6.0"
   },
   "dependencies": {
+    "cors": "^2.5.2",
     "express": "^4.9.7",
     "serve-static": "^1.6.4",
     "streamifier": "^0.1.0",
