@@ -146,7 +146,7 @@ describe('appConfigBuilder', function(){
                     stub.restore();
                 });
 
-                SIMPLE_PARAMETERS.forEach(function(param){
+                ['name','version','description'].forEach(function(param){
                     it(param, function(){
                         var opts = createValidOptsWithout(param);
 
@@ -154,7 +154,14 @@ describe('appConfigBuilder', function(){
                             builder.build(opts, LOADER);
                         }).to.throw( param + ' was not specified and can\'t be found in package.json' );
                     });
-                })
+                });
+
+                it( 'id defaults to name', function() {
+                    var opts = createValidOptsWithout('id');
+
+                    builder.build(opts, LOADER).metadata.should.have.property( 'id', 'some-name' );
+                } );
+
             });
         });
     });
