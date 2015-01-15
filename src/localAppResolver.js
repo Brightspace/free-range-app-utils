@@ -29,11 +29,11 @@ LocalAppRegistry.prototype.host = function() {
 };
 
 LocalAppRegistry.prototype.getUrl = function() {
-    return 'http://' + this._opts.hostname + ':' + this._opts.port + '/app';
+    return 'http://' + this._opts.hostname + ':' + this._opts.port + '/app/';
 };
 
 LocalAppRegistry.prototype.getConfigUrl = function() {
-    return this.getUrl() + '/' + this._opts.configFile;
+    return this.getUrl() + this._opts.configFile;
 };
 
 module.exports = function(key, opts) {
