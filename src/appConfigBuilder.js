@@ -11,10 +11,11 @@ function build(opts, loader) {
 
 	var pjson = packageJson.read();
 
+	var name = opts.name || pjson.name;
 	var values = {
-		name: opts.name || pjson.name,
+		name: name,
 		version: opts.version || pjson.version,
-		id: opts.id || pjson.appId,
+		id: opts.id || pjson.appId || name,
 		description: opts.description || pjson.description
 	};
 
