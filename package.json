@@ -1,6 +1,6 @@
 {
   "name": "free-range-app-utils",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Utilities for building free-range apps.",
   "main": "main.js",
   "scripts": {
