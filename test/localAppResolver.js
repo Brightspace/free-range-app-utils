@@ -30,6 +30,13 @@ describe('localAppResolver', function() {
 		});
 	});
 
+	describe('hostname', function() {
+		it('should strip ".local" domain from OSX hostname', function() {
+			appresolver(KEY, { hostname: 'somehost.local' })
+				.getUrl().should.equal('http://somehost:3000/app/');
+		});
+	});
+
 	describe('getUrl', function() {
 		it('should return expected url', function(){
 			appresolver(KEY, { hostname: 'somehost.com', port: 11111 })
@@ -75,5 +82,6 @@ describe('localAppResolver', function() {
 				}
 			});
 		});
+
 	});
 });
