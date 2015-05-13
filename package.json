@@ -1,6 +1,6 @@
 {
   "name": "free-range-app-utils",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Utilities for building free-range apps.",
   "main": "main.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "request": "^2.45.0",
     "sinon": "^1.12.2",
     "sinon-chai": "^2.6.0",
-    "superagent-d2l-cors-proxy": "^0.0.2"
+    "superagent-d2l-cors-proxy": "^0.0.3"
   },
   "dependencies": {
     "cors": "^2.5.2",
