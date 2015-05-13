@@ -1,7 +1,8 @@
 # Free-Range App Utils ([Frau](http://en.wiktionary.org/wiki/Frau))
 [![NPM version][npm-image]][npm-url]
-[![travis badge](http://img.shields.io/travis/Brightspace/free-range-app-utils.svg)](https://travis-ci.org/Brightspace/free-range-app-utils)
-[![coveralls badge](http://img.shields.io/coveralls/Brightspace/free-range-app-utils.svg)](https://coveralls.io/r/Brightspace/free-range-app-utils)
+[![Build status][ci-image]][ci-url]
+[![Coverage Status][coverage-image]][coverage-url]
+[![Dependency Status][dependencies-image]][dependencies-url]
 
 Utilities for building free-range apps.
 
@@ -64,7 +65,7 @@ gulp.task('appconfig', function(){
 The `build` and `buildStream` functions take the same parameters:
 
 - `target` (required) - The target url that the app will be served from.
-- `options` (optional) - An object that contains the following: 
+- `options` (optional) - An object that contains the following:
   - `name` - The app's name.  Defaults to the `name` value from package.json.
   - `version` - The app's version.  Defaults to the `version` value from package.json.
   - `id` - The app's id.  Defaults to the `appId` from package.json.
@@ -126,5 +127,12 @@ Run the tests locally:
 This repository is configured with [EditorConfig](http://editorconfig.org) rules and
 contributions should make use of them.
 
-[npm-url]: https://npmjs.org/package/free-range-app-utils
-[npm-image]: https://badge.fury.io/js/free-range-app-utils.png
+
+[npm-url]: https://www.npmjs.org/package/free-range-app-utils
+[npm-image]: https://img.shields.io/npm/v/free-range-app-utils.svg
+[ci-url]: https://travis-ci.org/Brightspace/free-range-app-utils
+[ci-image]: https://travis-ci.org/Brightspace/free-range-app-utils.svg?branch=master
+[coverage-url]: https://coveralls.io/r/Brightspace/free-range-app-utils?branch=master
+[coverage-image]: https://img.shields.io/coveralls/Brightspace/free-range-app-utils.svg
+[dependencies-url]: https://david-dm.org/brightspace/free-range-app-utils
+[dependencies-image]: https://img.shields.io/david/Brightspace/free-range-app-utils.svg
