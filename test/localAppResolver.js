@@ -1,5 +1,6 @@
-var appresolver = require('../src/localAppResolver');
-var request = require('request');
+var appresolver = require('../src/localAppResolver'),
+	corsProxy = require('superagent-d2l-cors-proxy'),
+	request = require('request');
 
 var KEY = 'whatevs';
 
@@ -80,6 +81,18 @@ describe('localAppResolver', function() {
 				} else {
 					cb();
 				}
+			});
+		});
+
+		it('should serve CORS proxy', function(cb) {
+			var url = 'http://localhost:3000' +
+				corsProxy.getProxyDefaultLocation();
+			request.get(url, function(err, res, body) {
+				if(err)
+					return cb(err);
+				if(res.statusCode !== 200)
+					return cb(res);
+				cb();
 			});
 		});
 

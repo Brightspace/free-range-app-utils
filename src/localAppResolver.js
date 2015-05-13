@@ -1,6 +1,7 @@
 'use strict';
 
-var os = require('os');
+var corsProxy = require('superagent-d2l-cors-proxy'),
+	os = require('os');
 
 function getHostname(opts) {
 	var hostname = opts.hostname || os.hostname();
@@ -34,6 +35,13 @@ LocalAppRegistry.prototype.host = function() {
 	app.get('/resolve/' + self._opts.key, function(req, res) {
 		res.json({ url: self.getConfigUrl() });
 	});
+
+	app.get(
+		corsProxy.getProxyDefaultLocation(),
+		function(req, res) {
+			res.sendFile(corsProxy.getProxyFilePath());
+		}
+	);
 
 	app.listen(self._opts.port);
 };

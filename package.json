@@ -24,7 +24,8 @@
     "mocha": "^1.21.5",
     "request": "^2.45.0",
     "sinon": "^1.12.2",
-    "sinon-chai": "^2.6.0"
+    "sinon-chai": "^2.6.0",
+    "superagent-d2l-cors-proxy": "^0.0.2"
   },
   "dependencies": {
     "cors": "^2.5.2",
