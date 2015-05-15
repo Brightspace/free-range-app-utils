@@ -24,14 +24,14 @@
     "mocha": "^1.21.5",
     "request": "^2.45.0",
     "sinon": "^1.12.2",
-    "sinon-chai": "^2.6.0",
-    "superagent-d2l-cors-proxy": "^0.0.5"
+    "sinon-chai": "^2.6.0"
   },
   "dependencies": {
     "cors": "^2.5.2",
     "express": "^4.9.7",
     "serve-static": "^1.9.2",
     "streamifier": "^0.1.0",
+    "superagent-d2l-cors-proxy": "^0.0.5",
     "vinyl-source-stream": "^1.0.0"
   }
 }
