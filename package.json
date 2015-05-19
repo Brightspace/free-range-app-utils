@@ -1,6 +1,6 @@
 {
   "name": "free-range-app-utils",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "description": "Utilities for building free-range apps.",
   "main": "main.js",
   "scripts": {
@@ -31,7 +31,7 @@
     "express": "^4.9.7",
     "serve-static": "^1.9.2",
     "streamifier": "^0.1.0",
-    "superagent-d2l-cors-proxy": "^0.0.5",
+    "superagent-d2l-cors-proxy": "^0.1.0",
     "vinyl-source-stream": "^1.0.0"
   }
 }
