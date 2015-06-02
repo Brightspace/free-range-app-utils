@@ -32,6 +32,15 @@ describe('umdAppConfigBuilder', function(){
             it('should have correct endpoint', function(){
                 builder.build(TARGET, OPTS).loader.should.have.property('endpoint', TARGET );
             });
+            
+            it('should have correct property showLoading', function() {
+                builder.build(TARGET, OPTS).loader.should.have.property('showLoading', true);
+                
+            });
+            
+            it('should not have property showLoading with OPTS undefined', function() {
+                builder.build(TARGET).loader.should.not.have.property('showLoading');
+            });
         });
     });
 });
@@ -41,6 +50,7 @@ function createValidOpts() {
         name: 'some-name',
         version: '1.0.0.1',
         description: 'It is a small world',
-        id: 'some-id'
+        id: 'some-id',
+        showLoading: true
     };
 }
