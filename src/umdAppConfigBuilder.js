@@ -11,10 +11,12 @@ function build(target, opts) {
 
     var loader = {
         schema: "http://apps.d2l.com/uiapps/umdschema/v1.json",
-        endpoint: target,
-        showLoading: opts.showLoading
+        endpoint: target
     };
-
+    
+    if( typeof(opts) === "object" ) {
+        loader.showLoading = opts.showLoading;
+    }
     return builder.build( opts, loader );
 }
 
