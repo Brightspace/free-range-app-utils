@@ -8,12 +8,14 @@ function build(target, opts) {
     if ( !target ) {
         throw new Error('Missing target');
     }
-
+    
+    opts = opts || {};
     var loader = {
         schema: "http://apps.d2l.com/uiapps/umdschema/v1.json",
-        endpoint: target
+        endpoint: target,
+        showLoading: opts.showLoading ? true : false
     };
-
+ 
     return builder.build( opts, loader );
 }
 
