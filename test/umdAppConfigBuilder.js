@@ -38,8 +38,8 @@ describe('umdAppConfigBuilder', function(){
                 
             });
             
-            it('should not have property showLoading with OPTS undefined', function() {
-                builder.build(TARGET).loader.should.not.have.property('showLoading');
+            it('should have property showLoading as false with OPTS undefined', function() {
+                builder.build(TARGET).loader.should.have.property('showLoading', false);
             });
         });
     });
