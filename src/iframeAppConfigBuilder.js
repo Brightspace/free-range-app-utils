@@ -5,18 +5,14 @@ var streamifier = require('streamifier'),
 	builder = require( './appConfigBuilder' );
 
 function build(target, opts) {
-
 	if(!target) {
 		throw new Error('Missing target');
 	}
-
 	var loader = {
 		schema: "http://apps.d2l.com/uiapps/iframeschema/v1.json",
 		endpoint: target
 	};
-
 	return builder.build(opts, loader);
-
 }
 
 function buildStream(target, opts) {
