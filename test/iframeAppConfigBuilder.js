@@ -1,4 +1,5 @@
-var builder = require('../src/iframeAppConfigBuilder');
+var builder = require('../src/iframeAppConfigBuilder'),
+	stream = require('stream');
 
 var TARGET = 'example.com/path/app.js';
 var OPTS = {
@@ -9,33 +10,44 @@ var OPTS = {
 };
 
 describe('iframeAppConfigBuilder', function(){
-	describe('build', function(){
-		it('no target', function(){
-			expect(builder.build).to.throw('Missing target');
+
+	describe('build', function() {
+
+		var coreBuilder;
+
+		beforeEach(function() {
+			coreBuilder = sinon.spy(require('../src/appConfigBuilder'), 'build');
 		});
 
-		it('should pass opts', function(){
-			var coreBuilder = sinon.spy(require('../src/appConfigBuilder'), 'build');
-
-			builder.build(TARGET, OPTS);
-
-			coreBuilder.should.have.been.calledWith(OPTS);
-
+		afterEach(function() {
 			coreBuilder.restore();
 		});
 
-		describe('loader', function(){
-			it('should exist', function(){
-				builder.build(TARGET, OPTS).should.have.property('loader');
-			});
-
-			it('should have correct schema', function(){
-				builder.build(TARGET, OPTS).loader.should.have.property('schema', 'http://apps.d2l.com/uiapps/iframeschema/v1.json' );
-			});
-
-			it('should have correct endpoint', function(){
-				builder.build(TARGET, OPTS).loader.should.have.property('endpoint', TARGET );
-			});
+		it('should throw with no target', function(){
+			expect(builder.build).to.throw('Missing target');
 		});
+
+		it('should pass opts to core builder', function(){
+			builder.build(TARGET, OPTS);
+			coreBuilder.should.have.been.calledWith(OPTS);
+		});
+
+		it('should create "loader" with schema and endpoint', function() {
+			var val = builder.build(TARGET, OPTS);
+			val.should.have.property('loader');
+			val.loader.should.have.property('schema', 'http://apps.d2l.com/uiapps/iframeschema/v1.json' );
+			val.loader.should.have.property('endpoint', TARGET );
+		});
+
 	});
+
+	describe('buildStream', function() {
+
+		it('should return a stream', function() {
+			var val = builder.buildStream(TARGET, OPTS);
+			val.should.instanceOf(stream.Stream);
+		});
+
+	});
+
 });
