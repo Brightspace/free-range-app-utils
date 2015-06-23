@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var streamifier = require('streamifier');
 var source = require('vinyl-source-stream');
@@ -16,7 +16,7 @@ function build(opts) {
 		additionalResources: opts.additionalResources || pjson.appAccessibleResources
 	}
 
-	if ( !loader.defaultResource ) {
+	if (!loader.defaultResource) {
 		throw new Error('defaultResource was not specified and can\'t be found in package.json');
 	}
 
@@ -26,8 +26,8 @@ function build(opts) {
 function buildStream(opts) {
 	var appConfig = build(opts);
 	return streamifier
-		.createReadStream( JSON.stringify( appConfig, null, '\t' ) )
-		.pipe( source('appconfig.json') );
+		.createReadStream(JSON.stringify(appConfig, null, '\t'))
+		.pipe(source('appconfig.json'));
 }
 
 module.exports = {

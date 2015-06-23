@@ -9,6 +9,6 @@ appConfigBuilder.html = htmlAppConfigBuilder;
 appConfigBuilder.iframe = require('./src/iframeAppConfigBuilder');
 
 module.exports = {
-    localAppResolver: require('./src/localAppResolver'),
-    appConfigBuilder: appConfigBuilder
+	localAppResolver: require('./src/localAppResolver'),
+	appConfigBuilder: appConfigBuilder
 };
