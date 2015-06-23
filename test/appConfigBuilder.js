@@ -3,186 +3,211 @@ var builder = require('../src/appConfigBuilder');
 var SIMPLE_PARAMETERS = ['name', 'version', 'id', 'description'];
 var LOADER = 'test';
 
-describe('appConfigBuilder', function(){
-    describe('build', function(){
-        it('should have correct schema', function(){
-            builder.build(createValidOpts(), LOADER).should.have.property('schema', 'http://apps.d2l.com/uiapps/config/v1.json' );
-        });
+describe('appConfigBuilder', function() {
+	describe('build', function() {
 
-        it('should accept null options', function(){
-            var spy = sinon.stub(require('../src/packageJson'), 'read')
-                .returns({
-                    name: 'some-name',
-                    version: '1.0.0.1',
-                    description: 'It is a small world',
-                    appId: 'some-id'
-                });
+		it('should have correct schema', function() {
+			builder.build(createValidOpts(), LOADER).should.have.property('schema', 'http://apps.d2l.com/uiapps/config/v1.json');
+		});
 
-            expect( builder.build(null, LOADER) ).to.not.throw;
+		it('should accept null options', function() {
+			var spy = sinon.stub(require('../src/packageJson'), 'read')
+				.returns({
+					name: 'some-name',
+					version: '1.0.0.1',
+					description: 'It is a small world',
+					appId: 'some-id'
+				});
 
-            spy.restore();
-        });
+			expect(builder.build(null, LOADER)).to.not.throw;
 
-        describe('loader', function(){
-            it('should fail with no loader', function(){
-                expect(function() {
-                    builder.build(createValidOpts())
-                }).to.throw('Missing loader information');
-            });
+			spy.restore();
+		});
 
-            it('should use given loader', function(){
-                var loader = 'test';
+		describe('loader', function() {
 
-                builder.build(createValidOpts(), loader).should.have.property('loader', loader);
-            });
-        });
+			it('should fail with no loader', function() {
+				expect(function() {
+					builder.build(createValidOpts())
+				}).to.throw('Missing loader information');
+			});
 
-        describe('metadata', function(){
-            it('should exist', function(){
-                builder.build(createValidOpts(), LOADER).should.have.property('metadata');
-            });
+			it('should use given loader', function() {
+				var loader = 'test';
 
-            describe('defaults', function(){
-                var NAME = 'some-name';
-                var VERSION = '1.0.0.1';
-                var DESCRIPTION = 'It is a small world';
-                var ID = 'some-id';
+				builder.build(createValidOpts(), loader).should.have.property('loader', loader);
+			});
 
-                var stub;
+		});
 
-                before(function(){
-                    stub = sinon.stub(require('../src/packageJson'), 'read')
-                });
+		describe('metadata', function() {
 
-                after(function(){
-                    stub.restore();
-                });
+			it('should exist', function() {
+				builder.build(createValidOpts(), LOADER).should.have.property('metadata');
+			});
 
-                it('name', function(){
-                    var VALUE = 'defaults-name';
-                    stub.returns({ name: VALUE });
+			describe('defaults', function() {
 
-                    builder.build(createValidOptsWithout('name'), LOADER).metadata.should.have.property( 'name', VALUE );
-                });
+				var NAME = 'some-name';
+				var VERSION = '1.0.0.1';
+				var DESCRIPTION = 'It is a small world';
+				var ID = 'some-id';
 
-                it('version', function(){
-                    var VALUE = '12.123.124';
-                    stub.returns({ version: VALUE });
+				var stub;
 
-                    builder.build(createValidOptsWithout('version'), LOADER).metadata.should.have.property( 'version', VALUE );
-                });
+				before(function() {
+					stub = sinon.stub(require('../src/packageJson'), 'read')
+				});
 
-                it('id', function(){
-                    var VALUE = '12.123.124';
-                    stub.returns({ appId: VALUE });
+				after(function() {
+					stub.restore();
+				});
 
-                    builder.build(createValidOptsWithout('id'), LOADER).metadata.should.have.property( 'id', VALUE );
-                });
+				it('name', function() {
+					var VALUE = 'defaults-name';
+					stub.returns({ name: VALUE });
 
-                it('description', function(){
-                    var VALUE = '12.123.124';
-                    stub.returns({ description: VALUE });
+					builder.build(createValidOptsWithout('name'), LOADER).metadata.should.have.property( 'name', VALUE );
+				});
 
-                    builder.build(createValidOptsWithout('description'), LOADER).metadata.should.have.property( 'description', VALUE );
-                });
-            });
+				it('version', function() {
+					var VALUE = '12.123.124';
+					stub.returns({ version: VALUE });
 
-            describe('valid arguments', function(){
-                var VALUES = {
-                    id: [ 'some-name', 'D2L.LP.App' ],
-                    version: [ '0.0.0.0', '1.0.0' ],
-                    name: [ 'some-name', 'some name', longString(256) ],
-                    description: [ 'A simple description.', longString(1024) ],
-                };
+					builder.build(createValidOptsWithout('version'), LOADER).metadata.should.have.property( 'version', VALUE );
+				});
 
-                SIMPLE_PARAMETERS.forEach(function(param){
-                    describe(param, function(){
-                        VALUES[param].forEach(function(value){
-                            it(value, function(){
-                                var opts = createValidOptsWithout(param);
-                                opts[param] = value;
+				it('id', function() {
+					var VALUE = '12.123.124';
+					stub.returns({ appId: VALUE });
 
-                                builder.build(opts, LOADER).metadata.should.have.property( param, value );
-                            });
-                        });
-                    });
-                });
-            });
+					builder.build(createValidOptsWithout('id'), LOADER).metadata.should.have.property( 'id', VALUE );
+				});
 
-            describe('invalid arguments', function(){
-                var VALUES = {
-                    id: [ '....', '----', 'some--name' ],
-                    version: [ '....', '1.0-something', '1.0.0.0.1', '1.0' ],
-                    name: [ longString(257) ],
-                    description: [ longString(1025) ],
-                };
+				it('description', function() {
+					var VALUE = '12.123.124';
+					stub.returns({ description: VALUE });
 
-                SIMPLE_PARAMETERS.forEach(function(param){
-                    describe(param, function(){
-                        VALUES[param].forEach(function(value){
-                            it(value, function(){
-                                var opts = createValidOptsWithout(param);
-                                opts[param] = value;
+					builder.build(createValidOptsWithout('description'), LOADER).metadata.should.have.property( 'description', VALUE );
+				});
+			});
 
-                                expect(function(){
-                                    builder.build(opts, LOADER);
-                                }).to.throw( new RegExp(param) ); // message should include parameter name
-                            });
-                        });
-                    });
-                });
-            });
+			describe('valid arguments', function() {
 
-            describe('no value', function(){
-                var stub;
+				var VALUES = {
+					id: [ 'some-name', 'D2L.LP.App' ],
+					version: [ '0.0.0.0', '1.0.0' ],
+					name: [ 'some-name', 'some name', longString(256) ],
+					description: [ 'A simple description.', longString(1024) ],
+				};
 
-                before(function(){
-                    stub = sinon
-                        .stub(require('../src/packageJson'), 'read')
-                        .returns({});
-                });
+				SIMPLE_PARAMETERS.forEach(function(param) {
 
-                after(function(){
-                    stub.restore();
-                });
+					describe(param, function() {
 
-                ['name','version','description'].forEach(function(param){
-                    it(param, function(){
-                        var opts = createValidOptsWithout(param);
+						VALUES[param].forEach(function(value) {
 
-                        expect(function(){
-                            builder.build(opts, LOADER);
-                        }).to.throw( param + ' was not specified and can\'t be found in package.json' );
-                    });
-                });
+							it(value, function() {
+								var opts = createValidOptsWithout(param);
+								opts[param] = value;
 
-                it( 'id defaults to name', function() {
-                    var opts = createValidOptsWithout('id');
+								builder.build(opts, LOADER).metadata.should.have.property(param, value);
+							});
 
-                    builder.build(opts, LOADER).metadata.should.have.property( 'id', 'some-name' );
-                } );
+						});
+					});
 
-            });
-        });
-    });
+				});
+
+			});
+
+			describe('invalid arguments', function() {
+
+				var VALUES = {
+					id: [ '....', '----', 'some--name' ],
+					version: [ '....', '1.0-something', '1.0.0.0.1', '1.0' ],
+					name: [ longString(257) ],
+					description: [ longString(1025) ],
+				};
+
+				SIMPLE_PARAMETERS.forEach(function(param) {
+
+					describe(param, function() {
+
+						VALUES[param].forEach(function(value) {
+
+							it(value, function() {
+								var opts = createValidOptsWithout(param);
+								opts[param] = value;
+
+								expect(function() {
+									builder.build(opts, LOADER);
+								}).to.throw(new RegExp(param)); // message should include parameter name
+
+							});
+
+						});
+
+					});
+				});
+
+			});
+
+			describe('no value', function() {
+				var stub;
+
+				before(function() {
+					stub = sinon
+						.stub(require('../src/packageJson'), 'read')
+						.returns({});
+				});
+
+				after(function(){
+					stub.restore();
+				});
+
+				['name','version','description'].forEach(function(param) {
+
+					it(param, function() {
+						var opts = createValidOptsWithout(param);
+
+						expect(function() {
+							builder.build(opts, LOADER);
+						}).to.throw(param + ' was not specified and can\'t be found in package.json');
+
+					});
+
+				});
+
+				it('id defaults to name', function() {
+					var opts = createValidOptsWithout('id');
+
+					builder.build(opts, LOADER).metadata.should.have.property('id', 'some-name');
+				});
+
+			});
+
+		});
+	});
+
 });
 
 function createValidOpts() {
-    return {
-        name: 'some-name',
-        version: '1.0.0.1',
-        description: 'It is a small world',
-        id: 'some-id',
-        loader: 'test'
-    };
+	return {
+		name: 'some-name',
+		version: '1.0.0.1',
+		description: 'It is a small world',
+		id: 'some-id',
+		loader: 'test'
+	};
 }
 
 function createValidOptsWithout(str) {
-    var opts = createValidOpts();
-    delete opts[str];
-    return opts;
+	var opts = createValidOpts();
+	delete opts[str];
+	return opts;
 }
 
 function longString(len) {
-    return Array(len + 1).join('a');
+	return Array(len + 1).join('a');
 }

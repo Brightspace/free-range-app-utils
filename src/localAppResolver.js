@@ -13,7 +13,7 @@ function getHostname(opts) {
 
 function LocalAppRegistry(key, opts) {
 	opts = opts || {};
-	opts.key = key || require( './packageJson' ).read().name;
+	opts.key = key || require('./packageJson').read().name;
 	opts.hostname = getHostname(opts);
 	opts.port = opts.port || 3000;
 	opts.dist = opts.dist || 'dist';
@@ -29,7 +29,7 @@ LocalAppRegistry.prototype.host = function() {
 	var cors = require('cors');
 	var serveStatic = require('serve-static');
 
-	app.use( cors() );
+	app.use(cors());
 	app.use('/app', serveStatic(self._opts.dist));
 
 	app.get('/resolve/' + self._opts.key, function(req, res) {
