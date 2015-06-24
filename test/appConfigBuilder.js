@@ -1,22 +1,21 @@
 var builder = require('../src/appConfigBuilder');
 
-var SIMPLE_PARAMETERS = ['name', 'version', 'id', 'description'];
+var SIMPLE_PARAMETERS = ['version', 'id', 'description'];
 var LOADER = 'test';
 
 describe('appConfigBuilder', function() {
 	describe('build', function() {
 
 		it('should have correct schema', function() {
-			builder.build(createValidOpts(), LOADER).should.have.property('schema', 'http://apps.d2l.com/uiapps/config/v1.json');
+			builder.build(createValidOpts(), LOADER).should.have.property('schema', 'http://apps.d2l.com/uiapps/config/v1.1.json');
 		});
 
 		it('should accept null options', function() {
 			var spy = sinon.stub(require('../src/packageJson'), 'read')
 				.returns({
-					name: 'some-name',
 					version: '1.0.0.1',
 					description: 'It is a small world',
-					appId: 'some-id'
+					appId: 'urn:d2l:fra:id:some-id'
 				});
 
 			expect(builder.build(null, LOADER)).to.not.throw;
@@ -48,10 +47,9 @@ describe('appConfigBuilder', function() {
 
 			describe('defaults', function() {
 
-				var NAME = 'some-name';
 				var VERSION = '1.0.0.1';
 				var DESCRIPTION = 'It is a small world';
-				var ID = 'some-id';
+				var ID = 'urn:d2l:fra:id:some-id';
 
 				var stub;
 
@@ -63,13 +61,6 @@ describe('appConfigBuilder', function() {
 					stub.restore();
 				});
 
-				it('name', function() {
-					var VALUE = 'defaults-name';
-					stub.returns({ name: VALUE });
-
-					builder.build(createValidOptsWithout('name'), LOADER).metadata.should.have.property( 'name', VALUE );
-				});
-
 				it('version', function() {
 					var VALUE = '12.123.124';
 					stub.returns({ version: VALUE });
@@ -78,7 +69,7 @@ describe('appConfigBuilder', function() {
 				});
 
 				it('id', function() {
-					var VALUE = '12.123.124';
+					var VALUE = 'urn:d2l:fra:id:some-id';
 					stub.returns({ appId: VALUE });
 
 					builder.build(createValidOptsWithout('id'), LOADER).metadata.should.have.property( 'id', VALUE );
@@ -90,14 +81,15 @@ describe('appConfigBuilder', function() {
 
 					builder.build(createValidOptsWithout('description'), LOADER).metadata.should.have.property( 'description', VALUE );
 				});
+
 			});
+
 
 			describe('valid arguments', function() {
 
 				var VALUES = {
-					id: [ 'some-name', 'D2L.LP.App' ],
+					id: [ 'urn:d2l:fra:id:some-id', 'urn:d2l:fra:id:some.id' ],
 					version: [ '0.0.0.0', '1.0.0' ],
-					name: [ 'some-name', 'some name', longString(256) ],
 					description: [ 'A simple description.', longString(1024) ],
 				};
 
@@ -124,9 +116,8 @@ describe('appConfigBuilder', function() {
 			describe('invalid arguments', function() {
 
 				var VALUES = {
-					id: [ '....', '----', 'some--name' ],
+					id: [ '....', '----', 'some--name', 'urn', 'urn:', 'urn:d2l:fra:id:some/id', 'urn:d2l:fra:id:some-id2' ],
 					version: [ '....', '1.0-something', '1.0.0.0.1', '1.0' ],
-					name: [ longString(257) ],
 					description: [ longString(1025) ],
 				};
 
@@ -166,7 +157,7 @@ describe('appConfigBuilder', function() {
 					stub.restore();
 				});
 
-				['name','version','description'].forEach(function(param) {
+				['version','description'].forEach(function(param) {
 
 					it(param, function() {
 						var opts = createValidOptsWithout(param);
@@ -179,25 +170,19 @@ describe('appConfigBuilder', function() {
 
 				});
 
-				it('id defaults to name', function() {
-					var opts = createValidOptsWithout('id');
-
-					builder.build(opts, LOADER).metadata.should.have.property('id', 'some-name');
-				});
-
 			});
 
 		});
+
 	});
 
 });
 
 function createValidOpts() {
 	return {
-		name: 'some-name',
 		version: '1.0.0.1',
 		description: 'It is a small world',
-		id: 'some-id',
+		id: 'urn:d2l:fra:id:some-id',
 		loader: 'test'
 	};
 }

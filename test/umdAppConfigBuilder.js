@@ -41,7 +41,7 @@ describe('umdAppConfigBuilder', function() {
 			});
 
 			it('should have property showLoading as false with OPTS undefined', function() {
-				builder.build(TARGET).loader.should.have.property('showLoading', false);
+				builder.build(TARGET, { id: createValidOpts().id }).loader.should.have.property('showLoading', false);
 			});
 
 		});
@@ -51,10 +51,9 @@ describe('umdAppConfigBuilder', function() {
 
 function createValidOpts() {
 	return {
-		name: 'some-name',
 		version: '1.0.0.1',
 		description: 'It is a small world',
-		id: 'some-id',
+		id: 'urn:d2l:fra:id:some-id',
 		showLoading: true
 	};
 }
