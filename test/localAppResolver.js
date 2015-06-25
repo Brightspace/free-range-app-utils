@@ -2,17 +2,17 @@ var appresolver = require('../src/localAppResolver'),
 	corsProxy = require('superagent-d2l-cors-proxy'),
 	request = require('request');
 
-var KEY = 'whatevs';
+var APP_CLASS = 'urn:d2l:fra:class:some-class';
 
-/*
 describe('localAppResolver', function() {
+
 	describe('defaults', function() {
 		it('should have _opts property', function() {
 			appresolver().should.have.property('_opts').that.is.not.null;
 		});
 
-		it('key', function() {
-			appresolver()._opts.should.have.property('key', 'free-range-app-utils');
+		it('class', function() {
+			appresolver(APP_CLASS)._opts.should.have.property('appClass', APP_CLASS);
 		});
 
 		it('hostname', function() {
@@ -34,31 +34,32 @@ describe('localAppResolver', function() {
 
 	describe('hostname', function() {
 		it('should strip ".local" domain from OSX hostname', function() {
-			appresolver(KEY, { hostname: 'somehost.local' })
+			appresolver(APP_CLASS, { hostname: 'somehost.local' })
 				.getUrl().should.equal('http://somehost:3000/app/');
 		});
 	});
 
 	describe('getUrl', function() {
 		it('should return expected url', function(){
-			appresolver(KEY, { hostname: 'somehost.com', port: 11111 })
+			appresolver(APP_CLASS, { hostname: 'somehost.com', port: 11111 })
 				.getUrl().should.equal('http://somehost.com:11111/app/');
 		});
 	});
 
 	describe('getConfigUrl', function() {
 		it('should return expected url', function(){
-			appresolver(KEY, { hostname: 'somehost.com', port: 11111, configFile: 'someconf.js' })
+			appresolver(APP_CLASS, { hostname: 'somehost.com', port: 11111, configFile: 'someconf.js' })
 				.getConfigUrl().should.equal('http://somehost.com:11111/app/someconf.js');
 		});
 	});
 
 	describe('host', function(){
-		var resolver = appresolver(KEY, { dist: 'test/testDist', hostname: 'localhost' });
+
+		var resolver = appresolver(APP_CLASS, { dist: 'test/testDist', hostname: 'localhost' });
 		resolver.host();
 
 		it('should serve resolution', function(cb) {
-			request.get('http://localhost:3000/resolve/' + KEY, function(error, response, body){
+			request.get('http://localhost:3000/resolve/' + encodeURIComponent(APP_CLASS), function(error, response, body){
 				if(error) {
 					cb(error);
 				} else if ( response.statusCode != 200 ) {
@@ -97,6 +98,7 @@ describe('localAppResolver', function() {
 			});
 		});
 
+
 	});
+
 });
-*/
