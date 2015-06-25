@@ -3,10 +3,9 @@ var builder = require('../src/iframeAppConfigBuilder'),
 
 var TARGET = 'example.com/path/app.js';
 var OPTS = {
-	name: 'some-name',
 	version: '1.0.0.1',
 	description: 'It is a small world',
-	id: 'some-id'
+	id: 'urn:d2l:fra:id:some-id'
 };
 
 describe('iframeAppConfigBuilder', function(){

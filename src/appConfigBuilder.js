@@ -11,25 +11,21 @@ function build(opts, loader) {
 
 	var pjson = packageJson.read();
 
-	var name = opts.name || pjson.name;
 	var values = {
-		name: name,
 		version: opts.version || pjson.version,
-		id: opts.id || pjson.appId || name,
+		id: opts.id || pjson.appId,
 		description: opts.description || pjson.description
 	};
 
-	validateName(values.name);
 	validateId(values.id);
 	validateVersion(values.version);
 	validateDescription(values.description);
 
 	var appConfig = {
-		schema: "http://apps.d2l.com/uiapps/config/v1.json",
+		schema: "http://apps.d2l.com/uiapps/config/v1.1.json",
 		metadata: {
-			name: values.name,
-			version: values.version,
 			id: values.id,
+			version: values.version,
 			description: values.description
 		},
 		loader: loader
@@ -38,17 +34,7 @@ function build(opts, loader) {
 	return appConfig;
 }
 
-function validateName(name) {
-	if (!name) {
-		throw new Error( 'name was not specified and can\'t be found in package.json' );
-	}
-
-	if (name.length > 256) {
-		throw new Error( 'name is too long' );
-	}
-}
-
-var ID_REGEX = new RegExp('^([a-zA-Z0-9]+[\\-\\.])*[a-zA-Z0-9]+$');
+var ID_REGEX = new RegExp("^urn:[a-zA-Z0-9][a-zA-Z0-9-]{0,31}:[a-zA-Z\-.:]+$");
 function validateId(id) {
 	if (!id) {
 		throw new Error( 'id was not specified and can\'t be found in package.json' );

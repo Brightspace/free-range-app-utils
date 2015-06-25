@@ -11,9 +11,9 @@ function getHostname(opts) {
 	return hostname;
 }
 
-function LocalAppRegistry(key, opts) {
+function LocalAppRegistry(appClass, opts) {
 	opts = opts || {};
-	opts.key = key || require('./packageJson').read().name;
+	opts.appClass = appClass || require('./packageJson').read().appClass;
 	opts.hostname = getHostname(opts);
 	opts.port = opts.port || 3000;
 	opts.dist = opts.dist || 'dist';
@@ -30,9 +30,11 @@ LocalAppRegistry.prototype.host = function() {
 	var serveStatic = require('serve-static');
 
 	app.use(cors());
+
 	app.use('/app', serveStatic(self._opts.dist));
 
-	app.get('/resolve/' + self._opts.key, function(req, res) {
+	var encodedAppClass = encodeURIComponent(self._opts.appClass);
+	app.get('/resolve/' + encodedAppClass, function(req, res) {
 		res.json({ url: self.getConfigUrl() });
 	});
 
@@ -54,6 +56,6 @@ LocalAppRegistry.prototype.getConfigUrl = function() {
 	return this.getUrl() + this._opts.configFile;
 };
 
-module.exports = function(key, opts) {
-	return new LocalAppRegistry(key, opts);
+module.exports = function(appClass, opts) {
+	return new LocalAppRegistry(appClass, opts);
 };

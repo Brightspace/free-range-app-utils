@@ -6,10 +6,6 @@ describe('htmlAppConfigBuilder', function() {
 
 	describe('build', function() {
 
-		it('should have correct schema', function() {
-			builder.build(OPTS).should.have.property('schema', 'http://apps.d2l.com/uiapps/config/v1.json' );
-		});
-
 		describe('loader', function() {
 
 			it('should exist', function() {
@@ -83,10 +79,9 @@ describe('htmlAppConfigBuilder', function() {
 
 function createValidOpts() {
 	return {
-		name: 'some-name',
 		version: '1.0.0.1',
 		description: 'It is a small world',
-		id: 'some-id',
+		id: 'urn:d2l:fra:id:some-id',
 		defaultResource: 'test'
 	};
 }

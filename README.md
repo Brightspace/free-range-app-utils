@@ -26,7 +26,11 @@ var frau = require('free-range-app-utils');
 A utility to host and resolve your app on your local instance.
 
 ```javascript
-var appresolver = frau.localAppResolver( key, options );
+var appresolver = frau.localAppResolver();
+
+// or...
+
+var appresolver = frau.localAppResolver( appClass, options );
 
 // Host an app resolver
 appresolver.host();
@@ -37,7 +41,7 @@ var target = appresolver.getUrl();
 
 **Parameters**:
 
-- `key` (optional) - The app key to resolve.  If not specified, the `name` field from the package.json is used.
+- `appClass` (optional) - The app class to resolve.  If not specified, the `appClass` field from the package.json is used.
 - `options` (optional) - An object containing:
   - `dist` - The directory containing the app files to serve.  By default, the `dist` directory is used.
   - `port` - The port to listen on.  By default, port `3000` is used, which is the port that the LMS expects it on.
@@ -66,14 +70,13 @@ The `build` and `buildStream` functions take the same parameters:
 
 - `target` (required) - The target url that the app will be served from.
 - `options` (optional) - An object that contains the following:
-  - `name` - The app's name.  Defaults to the `name` value from package.json.
-  - `version` - The app's version.  Defaults to the `version` value from package.json.
   - `id` - The app's id.  Defaults to the `appId` from package.json.
+  - `version` - The app's version.  Defaults to the `version` value from package.json.
   - `description` - The app's description.  Defaults to `description` from package.json.
 
 You should generally not need to provide `options` because the values can be obtained from the app's *package.json* file.
 
-> **Note**: If the app does not have a valid name, version, id, and description, you'll receive an error when you try and build the appconfig file.
+> **Note**: If the app does not have a valid id, version, and description, you'll receive an error when you try and build the appconfig file.
 
 ### Build appconfig (HTML Apps)
 A utility to create the appconfig file for free-range HTML apps.
@@ -96,9 +99,8 @@ gulp.task('appconfig', function(){
 The `build` and `buildStream` functions take the same parameters:
 
 - `options` (optional) - An object that contains the following:
-  - `name` - The app's name.  Defaults to the `name` value from package.json.
-  - `version` - The app's version.  Defaults to the `version` value from package.json.
   - `id` - The app's ID.  Defaults to the `name` from package.json.
+  - `version` - The app's version.  Defaults to the `version` value from package.json.
   - `description` - The app's description.  Defaults to the `description` from package.json.
   - `defaultResource` - The default resource to point to when the app is loaded. Defaults to `appDefaultResource` resource object in package.json.
   - `additionalResources` - An array of additional resource objects that the app makes accessible. Defaults to `appAccessibleResources` in package.json.
@@ -111,7 +113,7 @@ Resource objects contain the following properties:
 
 You should generally not need to provide `options` because the values can be obtained from the app's *package.json* file..
 
-> **Note**: If the app does not have a valid name, version, id, and description, you'll receive an error when you try and build the appconfig file.
+> **Note**: If the app does not have a valid id, version, and description, you'll receive an error when you try and build the appconfig file.
 
 ## Tests
 
@@ -124,9 +126,7 @@ Run the tests locally:
 
 ### Code Style
 
-This repository is configured with [EditorConfig](http://editorconfig.org) rules and
-contributions should make use of them.
-
+This repository is configured with [EditorConfig](http://editorconfig.org) rules and contributions should make use of them.
 
 [npm-url]: https://www.npmjs.org/package/free-range-app-utils
 [npm-image]: https://img.shields.io/npm/v/free-range-app-utils.svg
