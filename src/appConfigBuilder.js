@@ -41,7 +41,7 @@ function validateId(id) {
 	}
 
 	if (!ID_REGEX.test(id)) {
-		throw new Error( 'id "' + id + '" is invalid.  Ids must contain only alphanumeric characters optionally separated by "." or "-".' );
+		throw new Error( 'id "' + id + '" is invalid, must be a URN.' );
 	}
 }
 
