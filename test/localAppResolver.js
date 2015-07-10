@@ -9,27 +9,33 @@ describe('localAppResolver', function() {
 
 	describe('defaults', function() {
 		it('should have _opts property', function() {
-			appresolver().should.have.property('_opts').that.is.not.null;
+			appresolver(APP_CLASS).should.have.property('_opts').that.is.not.null;
 		});
 
 		it('class', function() {
 			appresolver(APP_CLASS)._opts.should.have.property('appClass', APP_CLASS);
 		});
 
+		it('should fail when no appClass is specified', function() {
+			expect(function() {
+				appresolver();
+			}).to.throw('appClass is a required argument for LocalAppResolver.');
+		});
+
 		it('hostname', function() {
-			appresolver()._opts.should.have.property('hostname', require('os').hostname());
+			appresolver(APP_CLASS)._opts.should.have.property('hostname', require('os').hostname());
 		});
 
 		it('port', function() {
-			appresolver()._opts.should.have.property('port', DEFAULT_PORT);
+			appresolver(APP_CLASS)._opts.should.have.property('port', DEFAULT_PORT);
 		});
 
 		it('dist', function() {
-			appresolver()._opts.should.have.property('dist', 'dist');
+			appresolver(APP_CLASS)._opts.should.have.property('dist', 'dist');
 		});
 
 		it('appconfig', function() {
-			appresolver()._opts.should.have.property('configFile', 'appconfig.json');
+			appresolver(APP_CLASS)._opts.should.have.property('configFile', 'appconfig.json');
 		});
 	});
 
