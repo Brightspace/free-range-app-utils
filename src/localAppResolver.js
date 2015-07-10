@@ -1,6 +1,7 @@
 'use strict';
 
 var corsProxy = require('superagent-d2l-cors-proxy'),
+	chalk = require('chalk'),
 	os = require('os');
 
 function getHostname(opts) {
@@ -12,8 +13,16 @@ function getHostname(opts) {
 }
 
 function LocalAppRegistry(appClass, opts) {
+
+	if (!appClass) {
+		console.log(chalk.red('As of free-range-app-utils@0.8.0, Use localAppResolver(appClass, options) to specify an appClass when using the local app resolver.\n'));
+		throw new Error('appClass is a required argument for LocalAppResolver.');
+	} else if (require('./packageJson').read().appClass) {
+		console.log(chalk.red('As of free-range-app-utils@0.8.0, appClass in package.json is not supported.\n'));
+	}
+
 	opts = opts || {};
-	opts.appClass = appClass || require('./packageJson').read().appClass;
+	opts.appClass = appClass;
 	opts.hostname = getHostname(opts);
 	opts.port = opts.port || 3000;
 	opts.dist = opts.dist || 'dist';
