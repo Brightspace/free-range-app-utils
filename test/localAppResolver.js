@@ -78,7 +78,7 @@ describe('localAppResolver', function() {
 				if(error) {
 					cb(error);
 				} else if ( response.statusCode != 404 ) {
-					console.log(response.statusCode);
+					cb(response.statusCode);
 				} else {
 					cb();
 				}
