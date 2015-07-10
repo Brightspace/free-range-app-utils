@@ -73,6 +73,18 @@ describe('localAppResolver', function() {
 			});
 		});
 
+		it('should not serve resolution when trying to resolve app-class that is not being hosted', function(cb) {
+			request.get('http://localhost:' + DEFAULT_PORT + '/resolve/some-other-app-class', function(error, response, body){
+				if(error) {
+					cb(error);
+				} else if ( response.statusCode != 404 ) {
+					console.log(response.statusCode);
+				} else {
+					cb();
+				}
+			});
+		});
+
 		it('should serve static files', function(cb) {
 			request.get('http://localhost:' + DEFAULT_PORT + '/app/staticFileToBeServed.txt', function(error, response, body){
 				if(error) {
