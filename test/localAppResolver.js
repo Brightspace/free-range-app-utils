@@ -3,6 +3,7 @@ var appresolver = require('../src/localAppResolver'),
 	request = require('request');
 
 var APP_CLASS = 'urn:d2l:fra:class:some-class';
+var DEFAULT_PORT = 3000;
 
 describe('localAppResolver', function() {
 
@@ -20,7 +21,7 @@ describe('localAppResolver', function() {
 		});
 
 		it('port', function() {
-			appresolver()._opts.should.have.property('port', 3000);
+			appresolver()._opts.should.have.property('port', DEFAULT_PORT);
 		});
 
 		it('dist', function() {
@@ -35,7 +36,7 @@ describe('localAppResolver', function() {
 	describe('hostname', function() {
 		it('should strip ".local" domain from OSX hostname', function() {
 			appresolver(APP_CLASS, { hostname: 'somehost.local' })
-				.getUrl().should.equal('http://somehost:3000/app/');
+				.getUrl().should.equal('http://somehost:' + DEFAULT_PORT + '/app/');
 		});
 	});
 
@@ -59,12 +60,12 @@ describe('localAppResolver', function() {
 		resolver.host();
 
 		it('should serve resolution', function(cb) {
-			request.get('http://localhost:3000/resolve/' + encodeURIComponent(APP_CLASS), function(error, response, body){
+			request.get('http://localhost:' + DEFAULT_PORT + '/resolve/' + encodeURIComponent(APP_CLASS), function(error, response, body){
 				if(error) {
 					cb(error);
 				} else if ( response.statusCode != 200 ) {
 					cb(response.statusCode);
-				} else if ( JSON.parse(body).url != 'http://localhost:3000/app/appconfig.json' ) {
+				} else if ( JSON.parse(body).url != 'http://localhost:' + DEFAULT_PORT + '/app/appconfig.json' ) {
 					cb(JSON.parse(body));
 				} else {
 					cb();
@@ -73,7 +74,7 @@ describe('localAppResolver', function() {
 		});
 
 		it('should serve static files', function(cb) {
-			request.get('http://localhost:3000/app/staticFileToBeServed.txt', function(error, response, body){
+			request.get('http://localhost:' + DEFAULT_PORT + '/app/staticFileToBeServed.txt', function(error, response, body){
 				if(error) {
 					cb(error);
 				} else if ( response.statusCode != 200 ) {
@@ -87,7 +88,7 @@ describe('localAppResolver', function() {
 		});
 
 		it('should serve CORS proxy', function(cb) {
-			var url = 'http://localhost:3000' +
+			var url = 'http://localhost:' + DEFAULT_PORT +
 				corsProxy.getProxyDefaultLocation();
 			request.get(url, function(err, res, body) {
 				if(err)
