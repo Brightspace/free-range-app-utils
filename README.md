@@ -26,10 +26,6 @@ var frau = require('free-range-app-utils');
 A utility to host and resolve your app on your local instance.
 
 ```javascript
-var appresolver = frau.localAppResolver();
-
-// or...
-
 var appresolver = frau.localAppResolver( appClass, options );
 
 // Host an app resolver
@@ -41,7 +37,7 @@ var target = appresolver.getUrl();
 
 **Parameters**:
 
-- `appClass` (optional) - The app class to resolve.  If not specified, the `appClass` field from the package.json is used.
+- `appClass` (required) - The app class to resolve.  If not specified, the `appClass` field from the package.json is used.
 - `options` (optional) - An object containing:
   - `dist` - The directory containing the app files to serve.  By default, the `dist` directory is used.
   - `port` - The port to listen on.  By default, port `3000` is used, which is the port that the LMS expects it on.
