@@ -33,7 +33,8 @@ LocalAppRegistry.prototype.host = function() {
 
 	app.use('/app', serveStatic(self._opts.dist));
 
-	app.get('/resolve/*', function(req, res) {
+	var encodedAppClass = encodeURIComponent(self._opts.appClass);
+	app.get('/resolve/' + encodedAppClass, function(req, res) {
 		res.json({ url: self.getConfigUrl() });
 	});
 
