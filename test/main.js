@@ -10,6 +10,7 @@ describe('main', function() {
 
 		var umdAppConfigBuilder = require('../src/umdAppConfigBuilder');
 		var htmlAppConfigBuilder = require('../src/htmlAppConfigBuilder');
+		var iframeAppConfigBuilder = require('../src/iframeAppConfigBuilder');
 
 		it('should default umd', function() {
 			main.appConfigBuilder.should.be.equal(umdAppConfigBuilder);
@@ -21,6 +22,10 @@ describe('main', function() {
 
 		it('should expose html', function() {
 			main.appConfigBuilder.should.have.property('html').that.is.equal(htmlAppConfigBuilder);
+		});
+
+		it('should expose iframe', function() {
+			main.appConfigBuilder.should.have.property('iframe').that.is.equal(iframeAppConfigBuilder);
 		});
 
 	});
