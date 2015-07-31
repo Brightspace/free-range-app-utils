@@ -80,7 +80,7 @@ A utility to create the appconfig file for free-range apps that will be loaded i
 
 ```javascript
 // Returns a JSON object with the appconfig
-var appConfig = frau.appConfigBuilder.ifrau.build( target, options );
+var appConfig = frau.appConfigBuilder.iframe.build( target, options );
 ```
 
 ```javascript
