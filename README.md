@@ -74,6 +74,39 @@ You should generally not need to provide `options` because the values can be obt
 
 > **Note**: If the app does not have a valid id, version, and description, you'll receive an error when you try and build the appconfig file.
 
+
+### Build appconfig (iFramed Apps)
+A utility to create the appconfig file for free-range apps that will be loaded into an iFrame.
+
+```javascript
+// Returns a JSON object with the appconfig
+var appConfig = frau.appConfigBuilder.ifrau.build( target, options );
+```
+
+```javascript
+gulp.task('appconfig', function(){
+    // Returns a vinyl stream with the appconfig.  Convenience method for use with gulp.
+    return frau.appConfigBuilder.buildStream( target, options )
+           .pipe( gulp.dest( 'dist' ) );
+});
+```
+
+**Parameters**:
+
+The `build` and `buildStream` functions take the same parameters:
+
+- `target` (required) - The target url that the app will be served from.
+- `options` (optional) - An object that contains the following:
+  - `id` - The app's id.  Defaults to the `appId` from package.json.
+  - `version` - The app's version.  Defaults to the `version` value from package.json.
+  - `description` - The app's description.  Defaults to `description` from package.json.
+
+You should generally not need to provide `options` because the values can be obtained from the app's *package.json* file.
+
+> **Note**: If the app does not have a valid id, version, and description, you'll receive an error when you try and build the appconfig file.
+
+Additional details for integrating iFramed free-range-apps can be found within the [ifrau repository](https://github.com/Brightspace/ifrau).
+
 ### Build appconfig (HTML Apps)
 A utility to create the appconfig file for free-range HTML apps.
 
@@ -86,7 +119,7 @@ var appConfig = frau.appConfigBuilder.html.build( options );
 gulp.task('appconfig', function(){
     // Returns a vinyl stream with the appconfig.  Convenience method for use with gulp.
     return frau.appConfigBuilder.html.buildStream( options )
-           .pipe(gulp.dest('dist'));
+           .pipe( gulp.dest( 'dist' ) );
 });
 ```
 
