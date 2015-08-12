@@ -49,13 +49,13 @@ A utility to create the appconfig file for free-range UMD apps.
 
 ```javascript
 // Returns a JSON object with the appconfig
-var appConfig = frau.appConfigBuilder.build( target, options );
+var appConfig = frau.appConfigBuilder.umd.build( target, options );
 ```
 
 ```javascript
 gulp.task('appconfig', function(){
     // Returns a vinyl stream with the appconfig.  Convenience method for use with gulp.
-    return frau.appConfigBuilder.buildStream( target, options )
+    return frau.appConfigBuilder.umd.buildStream( target, options )
            .pipe(gulp.dest('dist'));
 });
 ```
@@ -75,7 +75,7 @@ You should generally not need to provide `options` because the values can be obt
 > **Note**: If the app does not have a valid id, version, and description, you'll receive an error when you try and build the appconfig file.
 
 
-### Build appconfig (iFramed Apps)
+### Build appconfig (IFRAME Apps)
 A utility to create the appconfig file for free-range apps that will be loaded into an iFrame.
 
 ```javascript
@@ -86,7 +86,7 @@ var appConfig = frau.appConfigBuilder.iframe.build( target, options );
 ```javascript
 gulp.task('appconfig', function(){
     // Returns a vinyl stream with the appconfig.  Convenience method for use with gulp.
-    return frau.appConfigBuilder.buildStream( target, options )
+    return frau.appConfigBuilder.iframe.buildStream( target, options )
            .pipe( gulp.dest( 'dist' ) );
 });
 ```
