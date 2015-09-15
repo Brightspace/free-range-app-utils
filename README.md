@@ -4,7 +4,7 @@
 [![Coverage Status][coverage-image]][coverage-url]
 [![Dependency Status][dependencies-image]][dependencies-url]
 
-Utilities for building free-range apps.
+**[Deprecated]** - Use [frau-local-appresolver](https://github.com/Brightspace/frau-local-appresolver), [frau-appconfig-builder](https://github.com/Brightspace/frau-appconfig-builder) instead.
 
 ## Usage
 
